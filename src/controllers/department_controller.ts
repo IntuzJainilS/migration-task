@@ -4,7 +4,7 @@ import { Department } from "../models/department_model";
 export const getAllDepartments = async (req: Request, res: Response) => {
   try {
     const departments = await Department.findAll();
-
+    
     return res.status(200).json({
       success: true,
       data: departments,

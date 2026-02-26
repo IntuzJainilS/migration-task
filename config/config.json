@@ -4,7 +4,10 @@
     "password": "Root@123456",
     "database": "migration-task",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "seederStorage": "json",
+    "seederStoragePath": "sequelizeData.json",
+    "seederStorageTableName": "Sequelize_seeder_Data"
   },
   "test": {
     "username": "root",

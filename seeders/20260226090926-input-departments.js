@@ -6,14 +6,14 @@ module.exports = {
     await queryInterface.bulkInsert('Departments', [
       {
         id: uuidv4(),
-        name: 'TL',
+        name: 'PMO',
         description: 'testing TL enteries',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: uuidv4(),
-        name: 'Intern',
+        name: 'Home ministry',
         description: 'testing intern enteries',
         createdAt: new Date(),
         updatedAt: new Date(),

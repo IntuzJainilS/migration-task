@@ -3,6 +3,7 @@ import { employee } from "../models/employee_model";
 import {v4 as uuidv4} from "uuid";
 
 
+// get employee
 export const getAllemployee = async (req: Request, res: Response) => {
     try {
         const employees = await employee.findAll();
@@ -19,6 +20,7 @@ export const getAllemployee = async (req: Request, res: Response) => {
     }
 }
 
+// get single employee
 export const getEmployeeDetail = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
@@ -37,6 +39,7 @@ export const getEmployeeDetail = async (req: Request, res: Response) => {
     }
 }
 
+// create new employee
 export const createEmployee = async (req: Request, res: Response) => {
     try {
         const { first_name, last_name, email, designation, salary, department_id, is_active } = req.body;
@@ -68,6 +71,7 @@ export const createEmployee = async (req: Request, res: Response) => {
     }
 }
 
+// update employee
 export const updateemployee = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
@@ -101,6 +105,7 @@ export const updateemployee = async (req: Request, res: Response) => {
     }
 }
 
+// delete employee
 export const deleteEmployee = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
