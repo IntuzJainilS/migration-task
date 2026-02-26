@@ -19,13 +19,13 @@ interface employeeattributes {
 interface EmployeeCreationAttributes
     extends Optional<employeeattributes, "id"> { }
 
-export const employee = sequelize.define<Model<employeeattributes, EmployeeCreationAttributes>>("employee", {
+export const employee = sequelize.define<Model<employeeattributes, EmployeeCreationAttributes>>("Employee", {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         // type: Sequelize.UUID,
         primaryKey: true,
-        autoIncrement: true,
-        // defaultValue: DataTypes.UUIDV4
+        // autoIncrement: true,
+        defaultValue: DataTypes.UUIDV4
     },
     first_name: {
         type: DataTypes.STRING,
@@ -47,7 +47,7 @@ export const employee = sequelize.define<Model<employeeattributes, EmployeeCreat
         type: DataTypes.DECIMAL,
     },
     department_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         references: {
             model: "Departments",
             key: "id",
