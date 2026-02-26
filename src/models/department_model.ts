@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/db";
 
 interface DepartmentAttributes {
-  department_id: string;
+  id: string;
   name: string;
   description: string;
   created_at?: Date;
@@ -11,7 +11,7 @@ interface DepartmentAttributes {
 }
 
 interface DepartmentCreationAttributes
-  extends Optional<DepartmentAttributes, "department_id"> {}
+  extends Optional<DepartmentAttributes, "id"> {}
 
 interface DepartmentInstance
   extends Model<DepartmentAttributes, DepartmentCreationAttributes>,
@@ -20,7 +20,7 @@ interface DepartmentInstance
 export const Department = sequelize.define<DepartmentInstance>(
   "Department",
   {
-    department_id: {
+    id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
@@ -39,10 +39,10 @@ export const Department = sequelize.define<DepartmentInstance>(
     }
   },
   {
-    tableName: "departments",
+    tableName: "Departments",
     timestamps: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+    createdAt: "createdAt",
+    updatedAt: "updatedAt",
     paranoid:true,
     deletedAt: "deleted_at",
   }

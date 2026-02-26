@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { employee } from "../models/employee_model";
+import {v4 as uuidv4} from "uuid";
+
 
 export const getAllemployee = async (req: Request, res: Response) => {
     try {
@@ -52,7 +54,7 @@ export const createEmployee = async (req: Request, res: Response) => {
             })
         }
 
-        const createEmployee = employee.create(req.body)
+        const createEmployee = await employee.create(req.body)
         return res.status(201).json({
             message: "user created successfully",
             data: createEmployee,
@@ -102,6 +104,7 @@ export const updateemployee = async (req: Request, res: Response) => {
 export const deleteEmployee = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
+        console.log("id:", id);
 
         const findemployee = await employee.findByPk(id as string)
 
@@ -112,7 +115,7 @@ export const deleteEmployee = async (req: Request, res: Response) => {
             });
         }
 
-        await employee.destroy();
+        await findemployee.destroy();
         return res.status(201).json({
             success: true,
             message: "employee deleted successfully",

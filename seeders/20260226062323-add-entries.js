@@ -3,19 +3,22 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Employee', [
+    await queryInterface.bulkInsert('Departments', [
       {
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'example@example.com',
-        designation: 'psi',
-        salary: '10000',
-        department_id:1,
-        is_active: true,
+        // id: '001',
+        name: 'Developer',
+        description: 'test-description . developer data is inserting or not',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-    ]);
+      {
+        // id: '001',
+        name: 'TL',
+        description: 'test-description . TL data is inserting or not',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+       ]);
     /**
      * Add seed commands here.
      *
@@ -28,6 +31,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Departments', null, {});
     /**
      * Add commands to revert seed here.
      *

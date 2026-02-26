@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/db";
+import {v4 as uuidv4} from "uuid";
 
 interface employeeattributes {
     id: string;
@@ -20,11 +21,11 @@ interface EmployeeCreationAttributes
 
 export const employee = sequelize.define<Model<employeeattributes, EmployeeCreationAttributes>>("employee", {
     id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         // type: Sequelize.UUID,
         primaryKey: true,
-        // autoIncrement: true,
-        defaultValue: DataTypes.UUIDV4
+        autoIncrement: true,
+        // defaultValue: DataTypes.UUIDV4
     },
     first_name: {
         type: DataTypes.STRING,
@@ -46,9 +47,9 @@ export const employee = sequelize.define<Model<employeeattributes, EmployeeCreat
         type: DataTypes.DECIMAL,
     },
     department_id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         references: {
-            model: "Department",
+            model: "Departments",
             key: "id",
         },
         onUpdate: "CASCADE",
@@ -63,7 +64,7 @@ export const employee = sequelize.define<Model<employeeattributes, EmployeeCreat
     }
 },
     {
-        tableName: "employees",
+        tableName: "Employees",
         timestamps: true,
         paranoid: true,
         deletedAt: "deleted_at",
