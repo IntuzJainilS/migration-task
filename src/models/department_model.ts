@@ -1,21 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/db";
+import { DepartmentInstance } from "../interface/department_interface";
 
-interface DepartmentAttributes {
-  id: string;
-  name: string;
-  description: string;
-  created_at?: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
-}
-
-interface DepartmentCreationAttributes
-  extends Optional<DepartmentAttributes, "id"> {}
-
-interface DepartmentInstance
-  extends Model<DepartmentAttributes, DepartmentCreationAttributes>,
-    DepartmentAttributes {}
 
 export const Department = sequelize.define<DepartmentInstance>(
   "Department",
@@ -33,7 +19,10 @@ export const Department = sequelize.define<DepartmentInstance>(
     description: {
       type: DataTypes.STRING,
     },
-    deleted_at:{
+    location: {
+      type: DataTypes.STRING,
+    },
+    deleted_at: {
       type: DataTypes.DATE,
       allowNull: true,
     }
@@ -43,7 +32,7 @@ export const Department = sequelize.define<DepartmentInstance>(
     timestamps: true,
     createdAt: "createdAt",
     updatedAt: "updatedAt",
-    paranoid:true,
+    paranoid: true,
     deletedAt: "deleted_at",
   }
 );

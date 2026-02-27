@@ -1,16 +1,76 @@
 import { Request, Response } from "express";
 import { employee } from "../models/employee_model";
-import {v4 as uuidv4} from "uuid";
-
+import { v4 as uuidv4 } from "uuid";
+import { Department } from "../models/department_model";
+import { Op } from "sequelize";
 
 // get employee
 export const getAllemployee = async (req: Request, res: Response) => {
     try {
-        const employees = await employee.findAll();
+        const {
+            page = 1,
+            limit = 10,
+            department,
+            designation,
+            is_active,
+            search,
+            sort_by = 'createdAt',
+            order = 'DESC'
+        } = req.query;
+
+        // pagination code
+        const offset = (Number(page) - 1) * Number(limit);
+
+        const whereClause: any = {};
+
+        if (designation) whereClause.designation = designation;
+        // if (is_active) whereClause.is_active = is_active === 'true';
+
+        // search filtering code
+        if (search) {
+            whereClause[Op.or] = [
+                { first_name: { [Op.like]: `%${search}%` } },
+                { last_name: { [Op.like]: `%${search}%` } },
+                { email: { [Op.like]: `%${search}%` } },
+            ];
+        }
+
+        const includeClause: any[] = [
+            {
+                model: Department,
+                as: "department", 
+                attributes: ['name'],
+                where: department ? { name: department } : {}, 
+                required: department ? true : false, 
+            }
+        ];
+
+        const { count, rows } = await employee.findAndCountAll({
+            where: whereClause,
+            include: includeClause,
+            distinct: true,
+            limit: Number(limit),
+            offset: offset,
+            order: [[sort_by as string, order as string]],
+        });
+
         return res.status(200).json({
             success: true,
-            data: employees,
-        })
+            pagination: {
+                totalItems: count,
+                totalPages: Math.ceil(count / Number(limit)),
+                currentPage: Number(page),
+            },
+            data: rows,
+        });
+
+
+
+        // const employees = await employee.findAll();
+        // return res.status(200).json({
+        //     success: true,
+        //     data: employees,
+        // })
     } catch (error) {
         return res.status(500).json({
             success: false,
