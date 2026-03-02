@@ -102,14 +102,14 @@ export const getEmployeeDetail = async (req: Request, res: Response) => {
 // create new employee
 export const createEmployee = async (req: Request, res: Response) => {
     try {
-        const { first_name, last_name, email, designation, salary, department_id, is_active } = req.body;
+        const { first_name, last_name, email, phone, designation, salary, department_id, manager_id, is_active } = req.body;
 
         if (!first_name || !last_name || !email || !designation || !salary || !department_id || !is_active) {
             return res.status(404).json({
                 message: "provide every field",
             })
         }
-
+        
         const findemployee = await employee.findOne({ where: { email: email } });
         if (findemployee) {
             return res.status(500).json({
@@ -135,13 +135,13 @@ export const createEmployee = async (req: Request, res: Response) => {
 export const updateemployee = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { first_name, last_name, email, designation, salary, department_id, is_active } = req.body;
+        // const { first_name, last_name, email, phone, designation, salary, department_id, manager_id, is_active } = req.body;
 
-        if (!first_name || !last_name || !email || !designation || !salary || !department_id || !is_active) {
-            return res.status(404).json({
-                message: "provide every field",
-            })
-        }
+        // if (!first_name || !last_name || !email || !designation || !salary || !department_id || !is_active) {
+        //     return res.status(404).json({
+        //         message: "provide every field",
+        //     })
+        // }
 
         const findemployee = await employee.findByPk(id as string);
         if (!findemployee) {
