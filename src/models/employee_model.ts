@@ -92,6 +92,8 @@ export const employee = sequelize.define<Model<employeeattributes, EmployeeCreat
         deletedAt: "deleted_at",
     }
 )
+
+// associations
 // Employee to Department
 employee.belongsTo(Department, {
     foreignKey: "department_id",
@@ -101,6 +103,7 @@ employee.belongsTo(Department, {
 // Department has many Employees
 Department.hasMany(employee, {
     foreignKey: "department_id",
+    as: "employees",
 });
 
 // Self reference (Manager)

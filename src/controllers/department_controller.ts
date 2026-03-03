@@ -6,6 +6,13 @@ import { employee } from "../models/employee_model";
 export const getAllDepartments = async (req: Request, res: Response) => {
   try {
     const departments = await Department.findAll();
+    
+    if (departments.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message:"no departments found"
+      })
+    }
 
     return res.status(200).json({
       success: true,
@@ -48,7 +55,9 @@ export const getDepartmentEmployees = async (req: Request, res: Response) => {
       include: [
         {
           model: employee,
-          as: "employee",
+          as: "employees",
+          // through: {attributes: [id as string]},
+          attributes: ["id", "first_name", "last_name"],
           include: [
             {
               model: employee,

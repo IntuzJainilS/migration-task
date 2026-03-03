@@ -54,6 +54,13 @@ export const getAllemployee = async (req: Request, res: Response) => {
             order: [[sort_by as string, order as string]],
         });
 
+        if (count === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "No employee found",
+            });
+        }
+
         return res.status(200).json({
             success: true,
             pagination: {

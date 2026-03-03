@@ -1,11 +1,15 @@
-{
+import dotenv from "dotenv";
+
+dotenv.config();
+
+export default {
   "development": {
-    "username": "root",
-    "password": "Root@123456",
-    "database": "migration-task",
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_NAME,
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "seederStorage": "json",
+    "seederStorage": "sequelize",
     "seederStoragePath": "sequelizeData.json",
     "seederStorageTableName": "Sequelize_seeder_Data"
   },
